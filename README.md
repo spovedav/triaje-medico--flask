@@ -5,5 +5,7 @@ Este proyecto fue echo el en flask
 python vs 3.8.0
 
 cmd > pip install flask
+
 cmd > pip install flask-socketio
+
 cmd > pip install pymySQL
