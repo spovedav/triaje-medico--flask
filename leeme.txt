@@ -4,34 +4,21 @@ Youtube: https://www.youtube.com/watch?v=fxavwHPJ36o&t=3079s
 Este proyecto fue echo el en flask
 python vs 3.8.0
 
-instalar Flask
-falsk.pocoo.org
-instalar un pip tiene como titulo And Easy to Setup
-
-cmd > pip install flask .- esto deveria correr solo
+cmd > pip install flask
 cmd > pip install flask-socketio
-pip version 19.2.3
+cmd > pip install pymySQL
 
+E la carpeta bd esta la base de datos
+<h1>Usuarios  Contraseña</h1>
+admision  admision
+doctor1   doctor1
+doctor2   doctor2
+doctor3   doctor3
+----------------------------------
+instalar Flask
 
 https://www.youtube.com/watch?v=LhsGA9PJtG0 - instalar mysql en python
 cmd > pip install PyMySQL
 
-
-CONTRACEÑA DE SQL : MySQL2019
-
-
 Tabla dinaminca 
 https://www.youtube.com/watch?v=IgCfZkR8wME&t=416s
- 
-
-
-with conn.cursor() as cursor:
-        SQL="SELECT * from prueba"
-        cursor.execute(SQL)
-        result=cursor.fetchone()
-
-
-    # if request.method == 'POST':
-    #     nombre = request.form['passlogin']
-    #     return result["nombre"]
-
