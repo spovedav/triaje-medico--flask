@@ -1,7 +1,6 @@
 # Triaje Medico > Python(Flask)  
-# Autor: Stevyn Poveda
-Fecha: 02-11-2019
-Youtube: https://www.youtube.com/watch?v=fxavwHPJ36o&t=3079s
+### Autor: Stevyn Poveda
+### Fecha: 02-11-2019
 Este proyecto fue echo el en flask
 python vs 3.8.0
 
