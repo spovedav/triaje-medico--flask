@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.8.5
+- https://www.phpmyadmin.net
+-
+- Servidor: 127.0.0.1
+- Tiempo de generación: 04-12-2019 a las 05:32:40
+- Versión del servidor: 10.1.38-MariaDB
+- Versión de PHP: 7.3.3
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="bd_empresarial" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="admision">
+                CREATE TABLE `admision` (
+                  `cod_paciente` int(11) NOT NULL AUTO_INCREMENT,
+                  `cod_agenda` int(11) NOT NULL,
+                  `cod_historial` int(11) DEFAULT NULL,
+                  `nombre1` varchar(50) DEFAULT NULL,
+                  `nombre2` varchar(50) DEFAULT NULL,
+                  `apellido1` varchar(50) DEFAULT NULL,
+                  `apellido2` varchar(50) DEFAULT NULL,
+                  `cedula` varchar(15) DEFAULT NULL,
+                  `fecha_nacimiento` varchar(11) DEFAULT NULL,
+                  `sexo` char(1) DEFAULT NULL,
+                  `estado_civil` char(1) DEFAULT NULL,
+                  `domicilio` varchar(300) DEFAULT NULL,
+                  `telef_domicilio` varchar(10) DEFAULT NULL,
+                  `celular` varchar(10) DEFAULT NULL,
+                  `correo` varchar(200) DEFAULT NULL,
+                  `ADMISION` varchar(20) DEFAULT NULL,
+                  `fecha_ingreso` varchar(11) DEFAULT NULL,
+                  PRIMARY KEY (`cod_paciente`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="agendar">
+                CREATE TABLE `agendar` (
+                  `cod_agenda` int(11) NOT NULL AUTO_INCREMENT,
+                  `nombre1` varchar(50) DEFAULT NULL,
+                  `apellido1` varchar(50) DEFAULT NULL,
+                  `telf` varchar(10) DEFAULT NULL,
+                  `cod_doctor` int(11) DEFAULT NULL,
+                  `fecha_cita` varchar(11) DEFAULT NULL,
+                  `hora` varchar(5) DEFAULT NULL,
+                  `observacion` varchar(300) DEFAULT NULL,
+                  `confir` tinyint(1) NOT NULL,
+                  PRIMARY KEY (`cod_agenda`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="control_">
+                CREATE TABLE `control_` (
+                  `año` varchar(4) DEFAULT NULL,
+                  `control_admin` int(11) DEFAULT NULL,
+                  `control_historial` int(11) DEFAULT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="detalle_admision">
+                CREATE TABLE `detalle_admision` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `cedula` varchar(15) NOT NULL,
+                  `direccion` int(200) NOT NULL,
+                  `correo` int(200) DEFAULT NULL,
+                  `celular` int(10) NOT NULL,
+                  `fecha_ingreso` int(11) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="detalle_doctor">
+                CREATE TABLE `detalle_doctor` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `cedula` varchar(15) NOT NULL,
+                  `direccion` varchar(200) DEFAULT NULL,
+                  `correo` varchar(200) DEFAULT NULL,
+                  `celular` varchar(10) NOT NULL,
+                  `a_lunes` varbinary(1) DEFAULT NULL,
+                  `a_martres` varbinary(1) DEFAULT NULL,
+                  `a_miercoles` varbinary(1) DEFAULT NULL,
+                  `a_jueves` varbinary(1) DEFAULT NULL,
+                  `a_viernes` varbinary(1) DEFAULT NULL,
+                  `a_sabado` varbinary(1) DEFAULT NULL,
+                  `a_domingos` varbinary(1) DEFAULT NULL,
+                  `ma_desde` varchar(5) NOT NULL,
+                  `ma_hasta` varchar(5) NOT NULL,
+                  `ta_desde` varchar(5) NOT NULL,
+                  `ta_hasta` varchar(5) NOT NULL,
+                  `fecha_ingreso` varchar(11) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="usuarios">
+                CREATE TABLE `usuarios` (
+                  `cedula` varchar(10) NOT NULL,
+                  `cod_doctor` int(11) NOT NULL,
+                  `nombre1` varchar(50) DEFAULT NULL,
+                  `nombre2` varchar(50) DEFAULT NULL,
+                  `apellido1` varchar(50) DEFAULT NULL,
+                  `apelldio2` varchar(50) DEFAULT NULL,
+                  `nickname` varchar(100) DEFAULT NULL,
+                  `pass` varchar(50) DEFAULT NULL,
+                  `activo` binary(1) DEFAULT NULL,
+                  `rol` varchar(100) DEFAULT NULL,
+                  `imagen` varchar(50) DEFAULT NULL,
+                  `fecha` date DEFAULT NULL,
+                  `cod_especialidad` int(2) NOT NULL,
+                  PRIMARY KEY (`cedula`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de datos: 'bd_empresarial'
+    -->
+    <database name="bd_empresarial">
+        <!-- Tabla admision -->
+        <!-- Tabla agendar -->
+        <!-- Tabla control_ -->
+        <table name="control_">
+            <column name="año">2019</column>
+            <column name="control_admin">0</column>
+            <column name="control_historial">0</column>
+        </table>
+        <!-- Tabla detalle_admision -->
+        <!-- Tabla detalle_doctor -->
+        <!-- Tabla usuarios -->
+        <table name="usuarios">
+            <column name="cedula">09000</column>
+            <column name="cod_doctor">0</column>
+            <column name="nombre1">Christina</column>
+            <column name="nombre2">Maria</column>
+            <column name="apellido1">Yepez</column>
+            <column name="apelldio2">tecnologico</column>
+            <column name="nickname">admision</column>
+            <column name="pass">admision</column>
+            <column name="activo">1</column>
+            <column name="rol">ADMISION</column>
+            <column name="imagen">call.png</column>
+            <column name="fecha">2019-12-25</column>
+            <column name="cod_especialidad">0</column>
+        </table>
+        <table name="usuarios">
+            <column name="cedula">0911</column>
+            <column name="cod_doctor">1</column>
+            <column name="nombre1">Stevyn</column>
+            <column name="nombre2">Marcelo</column>
+            <column name="apellido1">Poveda</column>
+            <column name="apelldio2">Velasquez</column>
+            <column name="nickname">doctor1</column>
+            <column name="pass">doctor1</column>
+            <column name="activo">1</column>
+            <column name="rol">DOCTOR</column>
+            <column name="imagen">doctor.jpg</column>
+            <column name="fecha">2019-12-25</column>
+            <column name="cod_especialidad">0</column>
+        </table>
+        <table name="usuarios">
+            <column name="cedula">0922</column>
+            <column name="cod_doctor">2</column>
+            <column name="nombre1">Cristian</column>
+            <column name="nombre2">Adrian</column>
+            <column name="apellido1">Lopez</column>
+            <column name="apelldio2">Aguirre</column>
+            <column name="nickname">doctor2</column>
+            <column name="pass">doctor2</column>
+            <column name="activo">1</column>
+            <column name="rol">DOCTOR</column>
+            <column name="imagen">doctor2.jpg</column>
+            <column name="fecha">2019-12-25</column>
+            <column name="cod_especialidad">0</column>
+        </table>
+        <table name="usuarios">
+            <column name="cedula">0933</column>
+            <column name="cod_doctor">3</column>
+            <column name="nombre1">Isaac</column>
+            <column name="nombre2">Feliciano</column>
+            <column name="apellido1">Orrala</column>
+            <column name="apelldio2">Tecnologico</column>
+            <column name="nickname">doctor3</column>
+            <column name="pass">doctor3</column>
+            <column name="activo">1</column>
+            <column name="rol">DOCTOR</column>
+            <column name="imagen">doctor3.png</column>
+            <column name="fecha">2019-12-25</column>
+            <column name="cod_especialidad">0</column>
+        </table>
+    </database>
+</pma_xml_export>

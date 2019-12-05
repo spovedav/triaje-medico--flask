@@ -1,0 +1,31 @@
+.body_gradiente{
+background: #0F2027;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.img_menu{
+    width: 50px;
+}
+
+.gra{
+    background-color: #3a6186;  /* fallback for old browsers */
+/* background: -webkit-linear-gradient(to right, #89253e, #3a6186);  Chrome 10-25, Safari 5.1-6 */
+/* background: linear-gradient(to right, #89253e, #3a6186); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+.avatar {
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 100px;
+    width: 100px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}
+
+.text-golden{
+    color: #bb4 !important;
+}

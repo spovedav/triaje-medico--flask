@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="shortcut icon" href="../static/img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+<style>
+    body {
+        background-color: currentColor;
+    }
+    .imagen_{
+        border: solid 5px cornflowerblue; 
+        border-radius: 10%;"
+    }
+</style>
+
+<body>
+    <div class="container center-block j-cente">
+
+        <div class="row justify-content-center h-100">
+            <div class="col-sm-10 align-self-center text-center">
+                <div id="imagen">
+                    
+                </div>
+                
+                <form action="../" method="post" class="form-block col-md-auto col-sm-10 m-auto w-sm-100 mt-5">
+                    <div class="row">
+                        <div class="col-12 bg-succes">
+                            <div class="col-8 offset-3 justify-content-center">
+                                <div class="form-group text-white col-lg-10">
+                                    <label for="userlogin">Usuario</label>
+                                    <input type="text" class="form-control" required name="userlogin" id="userlogin"
+                                        placeholder="Usuario">
+                                </div>
+
+
+                                <div class="form-group text-white col-lg-10">
+                                    <label for="passlogin">Password</label>
+                                    <input type="password" class="form-control" onkeyup="verificar(this.value)" required name="passlogin" id="passlogin"
+                                        placeholder="Contraceña">
+                                </div>
+                                <div class="col-lg-10">
+                                    <input type="submit" value="ENVIAR" id="enviar"
+                                        class="btn btn-outline-info text-white btn-block">
+                                </div>
+                                   
+                            </div>
+                            <p class="h3 text-white"> <span class="text-muted">AYUDA</span> ><a href="https://api.whatsapp.com/send?phone=5930990068908&text=Hola%20Guapo%20te%20quiero%20preguntar%20sobre%20tu%20triaje%20medico%20en%20pyhton(flask)" class="text-success" target="_blank" rel="noopener noreferrer">WhatsApp</a> > <a onclick="alert('te debo una explicacion enviame un mensaje de whatsapp\nUser:               Pass:\nadmision    admision\ndoctor1        doctor1\ndoctor2        doctor2\ndoctor3        doctor3 ');" class="text-danger">PDF GUIA</a> </p>
+                        </div>
+                    </div>
+
+
+                </form>
+                <br>
+                {% if message!='' %}
+                <div class="alert-danger w-25 m-auto">
+                    <p class="alert">
+                        {{ message }}
+                    </p>
+                </div>
+                {% endif %}
+                <br>
+                <p class="text-muted ">Desarrollado por <a href="https://www.facebook.com/spovedav96" target="_blank" rel="noopener noreferrer" class="text-danger">Stevyn Poveda   </a> <a href="https://github.com/spovedav" target="_blank" rel="noopener noreferrer">Github</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/alertify/alertify.js"></script>
+    <script src="../static/js/login.js"></script>
+
+        <script>
+        function verificar(e) {
+            //var url = 'http://127.0.0.1:5000/static/img/img_doctor/';
+            var user = document.getElementById('userlogin').value;
+            var parametros = {
+                "userlogin": user,
+                "passlogin": e
+            }
+            $.ajax({
+            data: parametros,
+            url: 'imagen_user',
+            type: 'POST',
+            //dataType: 'JSON',
+            success: function(r) {
+                document.getElementById('imagen').innerHTML = '<img class="ml-4 mt-5 w-25 imagen_" src="../static/img/'+r+'" width="100px" height="250px" alt="" srcset="">';   
+            }
+            });
+            //alert(e);
+        }
+        document.getElementById('imagen').innerHTML = '<img class="ml-4 mt-5 w-25 " src="../static/img/clinica.jpg" width="100px" height="250px" alt="" srcset="">';
+       </script> 
+
+       <script src="../static/js/jquery-3.4.1.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+Admisión
+{% endblock%}
+
+{% block styles %}
+<style>
+body{
+    background-color: currentColor;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
+{% endblock %}
+
+{% block script %}
+<script src="../static/js/admision.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script>
+$(document).ready(function(){
+    $("#cod_row").val('');
+    var socket = io.connect('http://127.0.0.1:5000/');
+    
+    socket.on('connect', function(cod){
+        console.log('Esta Session de Admision Trabaja con socket io');
+        console.log('https://www.youtube.com/watch?v=eayijy9f240');
+    });
+    
+    //ENVIAR ESTO CUANDO SE DE CLIK EN INSERTAR UNA NUEVA ADMISIN
+    $('#sendSocket').on('click', function(){
+        setTimeout(function(){ socket.emit('panel'); }, 8000);
+    });
+});
+</script>
+{% endblock %}
+{% block content %}
+<h1 class="text-center text-white">Admisiónes .. {{ fecha }}</h1>
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-8 col-md-7">
+        <div class="jumbotron" style="background-image:url(../static/img/img_menu/bann.jpg); border: solid 2px black;">
+            <p class="text-dark p-2 bg-golden h6" style="position: absolute;top: 10px; display: none;" id="info"></p>
+                <form action="" method="post" class="form" id="formAdmision">
+                    
+                    <input type="hidden" disabled name="cod_paciente" id="cod_paciente" value="{{ codigo }}">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="ceula" class="col-1">Cedula:</label>
+                                <input type="text" class="col-md6 form-control" name="cedula" id="cedula" onkeyup="buscar_paciente(this.value);" placeholder="Buscar Cedula">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="calender">Fecha de Nacimiento</label>
+                                <input type="date" required class="form-control" name="fecha_nacimiento" id="fecha_nacimiento">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 ">
+                            <div class="form-gruop">
+                                <label for="nombre1">Primer Nombre:</label>
+                                <input type="text" required class="form-control" name="nombre1" id="nombre1">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="nombre2">Segundo Nombre:</label>
+                                <input type="text" required class="form-control" name="nombre2" id="nombre2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido1">Primer Apellido:</label>
+                                <input type="text" required class="form-control" name="apellido1" id="apellido1">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido2">Segundo Apellido:</label>
+                                <input type="text" required class="form-control" name="apellido2" id="apellido2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido1">Sexo:</label>
+                                <select  required name="sexo" id="sexo" class="form-control">
+                                    <option value="M">Maculino</option>
+                                    <option value="F">Femenina</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido2">Estado Civil:</label>
+                                <select required class="form-control" id="e_civil" name="e_civil">
+                                        <option value="S">Soltero/a</option>
+                                        <option value="C">Casado/a</option>
+                                        <option value="D">Divorsiado/a</option>
+                                        <!-- <option value="audi">Audi</option> -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido1">Domicilio:</label>
+                                <input required type="text" class="form-control" name="domicilio" id="domicilio">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-gruop">
+                                <label for="apellido2">Telefono Domicilio:</label>
+                                <input required type="text" class="form-control" name="telef_domicilio" id="telef_domicilio">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-6">
+                                <div class="form-gruop">
+                                    <label for="apellido1">Celular:</label>
+                                    <input required type="text" class="form-control" name="celular" id="celular">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-gruop">
+                                    <label for="apellido2">Correo:</label>
+                                    <input required type="email" class="form-control" name="correo" id="correo">
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row mt-4">
+                        <div class="col">    
+                            <button  type="submit" id="sendSocket" class="btn btn-dark btn-block" value="Insert">Guardar</button>
+                        </div>
+                        <div class="col"><button class="btn btn-success btn-block" value="Update" disabled>Modificar</button></div>
+                        <div class="col"><button class="btn btn-danger btn-block" value="Delete" disabled>Eliminar</button></div>
+                    </div>
+                </form>
+            </div>
+</div>
+<div class="col-lg-4 col-md-5">
+    <div class="container" style="height: 660px; background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 5%;  border: solid 1px #3a6186;
+    ">
+            <form action="#" method="post">
+                    <div class="form-gruop">
+                            <label for="search" class="text-info">Buscar Paciente:</label>
+                            <input type="text" class="form-control text-success" onkeyup="alert('me falta esto');" name="search" id="search" placeholder="{Nombre,Apellido,Cedula,Fecha}">
+                    </div>
+                </form>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+Agendar
+{% endblock%}
+
+{% block styles %}
+<link rel="stylesheet" href="../static/css/calendario.css">
+<style>
+body{
+    background-color: currentColor;
+}
+</style>
+{% endblock%}
+
+{% block script %}
+<script src="../static/js/calendario.js"></script>
+<script src="../static/js/agendar.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('#demo').jsRapCalendar({
+            week: 6,
+            onClick: function (y, m, d) {
+                alert(y + '-' + m + '-' + d);
+            }
+        });
+
+    });
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script>
+$(document).ready(function(){
+    $("#cod_row").val('');
+    var socket = io.connect('http://127.0.0.1:5000/');
+    //var title = document.getElementById("title");
+    //socket.emit('table',title) -- split
+
+    //var cod_row = document.getElementById('cod_row').value;
+        
+        $(".checkbox").on('click',function(){
+            //alert('s');
+        var valor = $("#cod_row").val();
+        var cod_array=valor.split('-');
+        var cod = cod_array[1];
+        //location.reload();
+                    //     var parametros = {
+                    //     "cod": cod,
+                    //     "valor": c1 
+                    // }
+    // $.ajax({
+    //     data: parametros,
+    //     url: '/update_confir',
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     success: function(r) {
+    //         alert('confi '+c1);
+    //     }    
+    // });
+        //alert(cod);
+        //socket.send(cod)
+
+        // ESRO NO FUNIONA BIEN, no me dio tiempo
+        socket.emit('cliente_row',{
+            codigo : cod
+        });
+        //alert(cod_row.value);
+        //cod_row.value = '';
+    });
+    
+    // socket.on('response', function(cod){
+    //     // if(typeof cod.codigo != 'undefined'){
+
+    //     // }
+    //     var c1 = $('#confir-'+cod.codigo).prop('checked'); 
+    //             //alert("Checkbox seleccionado 1 "+c1);
+                
+    //             $("#cliente-"+cod.codigo).css("background-color", "rgb(97, 255, 74)");
+    //             $("#cliente-"+cod.codigo).css("color", "#000000");
+    //             $('#confir-'+cod.codigo).prop("checked",true);
+    // });
+
+    
+    socket.on('connect', function(cod){
+        //$(".checkbox").on('click',function(){
+        //$("#title").val(cod);
+        console.log('esto trabaja con web socket io');
+        console.log('https://www.youtube.com/watch?v=eayijy9f240');
+        //document.getElementById("title").innerHTML = 'd'
+        //socket.send('USER CONNECT')
+        //print('connn');
+        //title.innerHTML = 'dddddd'
+     //},
+    });
+});
+</script>
+{% endblock%}
+
+{% block content %}
+<!-- <h1 class="text-center">WEB GENDAR</h1>
+
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido a web Python!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+            featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="/" role="button">Inicio</a>
+    </div> -->
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="container" style="width: 350px;">
+                <h1 class="text-white h5 text-center">Fechas de citas</h1>
+                <div id="demo"></div>
+            </div>
+            
+            <section class="container" style="border: 1px solid #888;
+            margin:8px;
+            padding:8px;
+            box-shadow:4px 4px 6px #000;
+            border-radius:8px;">
+                <h1 class="h3 text-white text-center text-golden" id="title">AGENDAR PACIENTE</h1>
+                <form action="/insert_paciente" method="POST" class="form p-4">
+                    <input type="hidden" name="fechaSelect" id="fechaSelect">
+                    <input type="hidden" name="cod_paciente" id="cod_paciente"> <!-- a qui esta el codi del paciente para hacer la update -->
+                    <input type="hidden" name="cod_row" id="cod_row" value=""> <!-- a qui esta el codico de la fila selecionada en tabla-->
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-gruop">
+                                <label for="cedula" class="text-white">Cedula:</label>
+                                <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Buscar">
+                            </div>
+                        </div>
+                        <div class="col-4 ">
+                            <div class="form-gruop">
+                                <label for="nombre1" class="text-white">Nombre:</label>
+                                <input type="text" class="form-control" name="nombre1" id="nombre1" value="{{ n }}">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-gruop">
+                                <label for="apellido1" class="text-white">Apelldio:</label>
+                                <input type="text" class="form-control" name="apellido1" id="apellido1" value="{{ p }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <div class="form-gruop">
+                                <label for="telf" class="text-white">Celular:</label>
+                                <input type="text" class="form-control" name="telf" id="telf" placeholder="Celular">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-gruop">
+                                <label for="medico" class="text-white">Medico:</label>
+                                <select name="medico" id="medico" class="form-control">
+                                    <!-- AUTOGENERADO -->
+                                    <option value="1">Stevyn Poveda - Ginecolía</option>
+                                    <option value="2">Cristian Lopez - Dentista</option>
+                                    <option value="3">Isaac Orrala - proctólogo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                    <div class="form-gruop">
+                                            <label for="fecha" class="text-white">Fecha:</label>
+                                            <input type="date" class="form-control" name="fecha" id="fecha">
+                                        </div>
+                            </div>
+                            <div class="col-4">
+                                    <div class="form-gruop">
+                                            <label for="hora" class="text-white">hora:</label>
+                                            <input type="time" class="form-control" name="hora" id="hora">
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-11">
+                                <div class="form-gruop">
+                                    <label for="observacion" class="text-white">Observacion:</label>
+                                    <textarea name="observacion" id="observacion" cols="10" rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-9">
+
+                            </div>
+                            <div class="col-3">
+                                    <input type="submit" value="Agendar" class="btn btn-lg btn-block text-center btn-outline-success text-white">
+                            </div>
+                        </div>
+                </form>
+            </section>
+        </div>
+
+
+        <div class="col-lg-6 mt-5">
+            <table class="table table-striped bg-white show-table" style="font-size: 12px;">
+                <thead class="bg-golden text-dark" > 
+                  <tr>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Nomnbre</th>
+                    <th scope="col"></th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="table-paciente">
+                        <!-- {% for cliente in result %}
+                        <tr>
+                            <th scope="row">{{ cliente['telf']}}</th>
+                            <th colspan="2">{{ cliente['nombre1'] +' '+ cliente['apellido1'] }}</th>
+                            <th>{{ cliente['hora'] }}</th>
+                            <th>Especialidad D</th>
+                            <th> 
+                                <div class="small">
+                                    <form action="/aciones" method="post" class="d-inline">
+                                        <button type="button" class="ac" value="{{ cliente['cod_agenda'] }}" id="delete" onclick="cod_paciente(this);" ><img title="Eliminar {{ cliente['nombre1'] }}" src="../static/img/img_agendar/archivo_delete.png" alt="Eliminar"></button>
+                                        <button type="button" class="ac" value="{{ cliente['cod_agenda'] }}" id="update" onclick="cod_paciente(this);"><img title="Modificar {{ cliente['nombre1'] }}" src="../static/img/img_agendar/archivo_update.png" alt="Modificar"></button>
+                                        <button type="button" class="ac" value="{{ cliente['cod_agenda'] }}" id="admision" onclick="cod_paciente(this);"><img  title="Admisionar {{cliente['nombre1']}}" src="../static/img/img_agendar/archivo_insert.png" alt="Admision"></button>
+                                </div>
+                            </th>
+                        </tr>
+                        {% endfor %} -->
+                </tbody>
+              </table>
+              <div class="null"></div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36251023-1']);
+    _gaq.push(['_setDomainName', 'jqueryscript.net']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+{% endblock %}

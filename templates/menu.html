@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Menu Principal</title>
+    <link rel="shortcut icon" href="../static/img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/font/font-awesome.min.css">
+      
+</head>
+<body>
+        <input type="hidden" name="rol" id="rol" value="{{ rol }}">
+        <nav class="navbar navbar-light bg-light">
+                <div class="col-8 col">
+                        <a class="navbar-brand">Página Empresarial Medico</a>
+                </div>
+                <div class="col-4 col" title="{{ doctor }}">
+                        <a class="btn btn-outline-dark float-right"  href="{{ url_for('dropsession')}}">
+                            <img src="../static/img/{{ nombre_imagen }}" alt="" class="rounded-circle" width="35px" height="35px">
+                            {{ userSession }} <!-- {{ rol }} -->
+                            <img class="text-white ml-3" src="../static/font/opcion-de-cerrar-sesion.svg" width="20">
+                        </a>
+                </div>
+        </nav>
+        
+        <hr>
+        <br><br>
+        <div class="container center-block j-cente mt-5 height: 2000px;" style="background-image:url(../static/img/img_menu/bann.jpg); background-repeat: no-repeat;">
+                
+                <div class="row justify-content-center h-100 p-5">
+                    <div class="col-sm-10 align-self-center text-center">
+                        <div class="row mt-4">
+                            <div class="col-md-3  col-ms-12"> <img class="img_menu"  src="../static/img/img_menu/agendar.png" width="75%" alt="defaul">
+                            <a href="agendar" class="h3">Agendar</a>
+                            </div>
+                            <div class="col-md-3 col-ms-12"> <img class="img_menu" src="../static/img/img_menu/admision.png" width="75%" alt="defaul">
+                                <a href="{{ url_for('admision')}}" class="h3">Admisión</a>
+                            </div>
+                            <div class="col-md-3 col-ms-12"> <img class="img_menu" src="../static/img/img_menu/panel.png" width="75%" alt="defaul">
+                                <a href="{{ url_for('panel_principal')}}" class="h3">Panel Principal</a>
+                            </div>
+                            <div class="col-md-3 col-ms-12 congelar" id="congelar"> <img class="img_menu congelar" src="../static/img/img_menu/evolucion.png" width="75%" alt="defaul">
+                                <a href="{{ url_for('evolucion')}}" class="h3 congelar">Evolucion</a>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <footer class="bg- text-danger p-2"> <p class="mb-2 text-center m-auto"> <span class="text-muted">Desarrollado por</span> <a style="cursor:pointer;" onclick="alert('Aun Soy PROGRAMADOR JUNIOR');">Stevyn Poveda - </a> <a href="https://github.com/spovedav" target="_blank" rel="noopener noreferrer">Github</a></p></footer>
+                    </div>
+                </div>
+            </div>
+</body>
+<script>
+            var user = document.getElementById('userlogin').value;
+            var parametros = {
+                "userlogin": user,
+                "passlogin": e
+            }
+            $.ajax({
+            data: parametros,
+            url: 'imagen_user',
+            type: 'POST',
+            //dataType: 'JSON',
+            success: function(r) {
+                document.getElementById('imagen').innerHTML = '<img class="ml-4 mt-5 w-25 imagen_" src="../static/img/'+r+'" width="100px" height="250px" alt="" srcset="">';   
+            }
+            });
+    
+        var rol = document.getElementById('rol').value;
+        if (rol.toString()=='ADMISION'){
+            
+            alert('Entro como ADMISION');
+            //$(".congelar").removeClass("congelar").addClass( "" );
+            //document.getElementsById('congelar'); = 'no-drop';  //.disabled = true;
+            //congelar.style.cursor = 'no-drop';
+            // $('.congelar').prop('disabled', false);
+            // $('#congelar').attr('disabled','disabled');
+            // $('#congelar').attr('disabled',true);
+            // $('#congelar').removeAttr('disabled');
+            // document.getElementById('congelar').style.cursor = 'no-drop';
+        }
+    </script>
+
+</html>

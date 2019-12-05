@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block titulo %}
+Panel Principal
+{% endblock%}
+
+<!-- ESTYLOS PARA ESTE SITIO EN ESPESIFICO -->
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="../static/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+
+<style>
+    body {
+        background-image: aliceblue !important;
+    }
+</style>
+
+{% endblock %}
+
+<!-- SCRIPT PARA ESTE SITIO EN ESPESIFICO -->
+{% block script %}
+<script type="text/javascript" src="../static/js/datatables.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script>
+    $(document).ready(function () {
+        var socket = io.connect('http://127.0.0.1:5000/');
+
+        socket.on('connect', function (cod) {
+            console.log('Esta Session de Panel PRINCIPAL Trabaja con socket io');
+            console.log('https://www.youtube.com/watch?v=eayijy9f240');
+            socket.emit('panel');
+        });
+
+        socket.on('response', function (r) {
+            //console.log(r);
+            var tenplate = '';
+            var style = '';
+            var confi = '';
+            if (r.length != 0) {
+                for (var valor in r) {
+                    // alert( typeof(r[valor].confir));
+                    if (r[valor].confir == '1') {
+                        //alert('si set')
+                        style = 'style="background-color: rgb(97, 255, 74); color: #000;"';
+                        confi = 'checked';
+                    } else {
+                        style = '';
+                        confi = '';
+                    }
+                    // <th>Nombre</th>
+                    // <th>Hora de la cita</th>
+                    // <th>Doctor</th>
+                    // <th>Estado</th>
+                    // <th>info Paciente</th>
+                    // <th>Acciones</th>
+                    // `cod_paciente`, `cod_historial`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `cedula`, `ADMISION`, `fecha_ingreso`
+                    tenplate += `
+            <tr id="cliente-${ r[valor].cod_paciente}">
+                <th colspan="2">${ r[valor].nombre1 + ' ' + r[valor].nombre2 + ' ' + r[valor].apellido1 + ' ' + r[valor].apellido2}</th>
+                <th>${ r[valor].hora}</th>
+                <th>${ r[valor].doctor}</th>
+                <th>Sin Definir</th>
+                <th>Sin Definir</th>
+                <th> 
+                    <div class="small">
+                        <form action="/cod" method="POST" class="d-inline">
+                        <input type="hidden" name="cod" id="cod" value="">
+                        <button type="button" class="ac btn btn-outline-info bg-dark line-info btn-sm btn-info" value="" id="evo" onclick="alert('Queda pendiente Evolucion > cod_admin: (${ r[valor].cod_paciente}) - ${ r[valor].nombre1 + ' ' + r[valor].nombre2 + ' ' + r[valor].apellido1 + ' ' + r[valor].apellido2}');">Evolucionar</button>
+                        <button type="button" class="ac btn btn-outline-danger bg-dark btn-danger btn-sm" value="" id="cancelar" onclick="alert('Queda pendiente Cita Cancelada > cod_admin: (${ r[valor].cod_paciente}) - ${ r[valor].nombre1 + ' ' + r[valor].nombre2 + ' ' + r[valor].apellido1 + ' ' + r[valor].apellido2}');">Cancelarr</button> 
+                        <!--<button type="submit" class="ac btn-outline-secondary" value="" id="admision"></button>-->
+                    </div>
+                </th>
+            </tr>
+            `
+                }
+            } else {
+                tenplate = `<tr>
+                              <th colspan="3" class="text-danger p-4 mr-4 m-auto justify-content-center bg-dange h4">No hay registro</th>
+                           </tr>`
+            }
+
+
+            document.getElementById("table_panel").innerHTML = tenplate;
+            $("#table_panel").innerHTML = tenplate;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        //ESTO ES DE LA TABLE
+        $('#example').DataTable({
+            "scrollY": "500px",
+            "scrollCollapse": true,
+            "paging": false
+        });
+    });
+</script>
+{% endblock %}
+
+
+{% block content %}
+<div class="text-center">
+        <h1>Información en Tiempo Real</h1>
+        <p class="text-muted">La tabla se rellena automaticamente sin tener que refresar, al admisionar a alguin se envira los datos en <strong>6 segundos</strong></p>        
+</div>
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th></th>
+            <th>Hora</th>
+            <th>Nombre doctor</th>
+            <th>Estado</th>
+            <th>info Paciente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="table_panel" style="font-size: 11px;">
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Nombre</th>
+            <th></th>
+            <th>Hora</th>
+            <th>Nombre doctor</th>
+            <th>Estado</th>
+            <th>info Paciente</th>
+            <th>Acciones</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    $(document).load(function () {
+        var socket = io.connect('http://127.0.0.1:5000/');
+        socket.emit('panel');
+    });
+
+</script>
+
+{% endblock %}
