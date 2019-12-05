@@ -18,7 +18,10 @@ https://github.com/spovedav/triaje-medico--flask/tree/master/bd
 
 #### Socket io
 Unas partes trabaja con socket para enviar informacion en tiempo real 
+
 Server: esta en el index.py
+
 Cliente: esta en template/admision.html , template/panel_principal.html
+
 ###### cuando las chicas de admision hacen admisionan a un nuevo paciente para ese dia la informcion del pacinete se le envia al panel de todas las chicas de admision
 Me falata la parte de los doctores, para que ellos puedan revisar y evolucionar al paciente. �
