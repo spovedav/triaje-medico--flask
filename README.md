@@ -4,6 +4,8 @@
 Este proyecto fue echo el en flask
 python vs 3.8.0
 
+###### Imagenes del proyecto : https://github.com/spovedav/triaje-medico--flask/blob/master/imagenes_proyecto.pdf
+
 #### Dependencia
 
 cmd > pip install flask
